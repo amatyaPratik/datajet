@@ -134,17 +134,16 @@ function fetchConfigOfCurrentPipeline(){
             return d.pipelineId == pipelineId
         }) 
          
-        // console.log('currentPipeline.processes: ',currentPipeline[0].processes);
+        console.log('currentPipeline.processes: ',currentPipeline[0].processes);
         
-        // currentPipeline[0].processes.forEach(p=>{
-        //     processes = [currentPipeline[0].processes[0]]
-        //     add()
-        // })
+        currentPipeline[0].processes.forEach(p=>{
+            processes = [currentPipeline[0].processes[0]]
+            add()
+        })
         
     })}
 
 function add() {  
-    // Get the selected values from the form
     let processCount = processes.length
     let totalProcesses = document.getElementsByClassName('process-node').length
     let parallelProcesses = document.getElementsByClassName('process-node-parallel').length
@@ -161,9 +160,10 @@ function add() {
     if(processes.length>1){
         parallelCounter = processCount
         yLinearBand(processCount)
-        setupXxsScaleBand((currentPipeline[0])?currentPipeline[0].processes: processes, 'pid') // scale setup
+        // setupXxsScaleBand((currentPipeline[0])?currentPipeline[0].processes: processes, (currentPipeline[0])?'pid':currentPipeline[0].processes ) // scale setup
         processes.forEach(p => {
-            (()=>queueProcess((p.name?p.name:p),executionOrder, processCount),0)
+            console.log('p: ',p);
+            queueProcess((p.name?p.name:p),executionOrder, processCount)
         });    
         executionOrder++
     }
