@@ -5,7 +5,9 @@ let parallelCounter
 const takenExecutionOrders = new Set()
 
 function queueProcess(pName, pOrder, parallels = 0){
-    console.log('log', pOrder); 
+    debugger;
+    console.log('qOrder', pOrder);
+    console.log('pName: ',pName); 
  
     addNode(pName, pOrder, parallels)
 } 
@@ -39,7 +41,7 @@ function multiProcessesSelectCheck(){
 }
 
 function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
-    
+    debugger;
     takenExecutionOrders.add(pOrder) 
 
     if(parallels===0){
@@ -51,11 +53,11 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
       .attr("transform", "translate(" + (x(pOrder))+ "," + yy + ")") 
       .style("cursor", "pointer")
 
-      setTimeout(()=>{
-        const task = document.getElementById((pName.replace(' ','-').toLowerCase()+'-'+pOrder))
-        task.classList.remove('running')
-        task.classList.add('completed')
-      },8000)
+    //   setTimeout(()=>{
+    //     const task = document.getElementById((pName.replace(' ','-').toLowerCase()+'-'+pOrder))
+    //     task.classList.remove('running')
+    //     task.classList.add('completed')
+    //   },8000)
 
       
       group.append("rect")
@@ -137,7 +139,7 @@ function fetchConfigOfCurrentPipeline(){
         console.log('currentPipeline.processes: ',currentPipeline[0].processes);
         
         currentPipeline[0].processes.forEach(p=>{
-            processes = [currentPipeline[0].processes[0]]
+            processes =  p // [currentPipeline[0].processes[0]]
             add()
         })
         
@@ -156,7 +158,7 @@ function add() {
     else    
         executionOrder = totalProcesses + 1
     console.log('executionOrder: ',executionOrder);
-    //debugger;
+    debugger;
     if(processes.length>1){
         parallelCounter = processCount
         yLinearBand(processCount)
@@ -168,7 +170,7 @@ function add() {
         executionOrder++
     }
     else{
-        queueProcess(processes[0],executionOrder)
+        queueProcess((processes[0] && processes[0].name)?processes[0].name: ((processes[0] && !processes[0].name)? processes[0]: processes.name),executionOrder)
     }
 } 
 

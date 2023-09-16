@@ -38,12 +38,6 @@
                 "code":"prelim",
                 "status":"complete",
                 "pid":6
-            },
-            {
-                "name":"QC Automation",
-                "code":"qc-automation",
-                "status":"running",
-                "pid":7
             }
         ]
     },
