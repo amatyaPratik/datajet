@@ -1,0 +1,15 @@
+{
+  "name": "d3-learning",
+  "version": "1.0.0",
+  "description": "getting acquainted with d3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve":"./node_modules/.bin/http-server"
+  },
+  "author": "pratik",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

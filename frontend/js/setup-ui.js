@@ -1,6 +1,6 @@
-const jsonProcessesURL = 'http://localhost:8080/practice/js/processes.json';
-const jsonClientsURL = 'http://localhost:8080/practice/js/clients.json';
-const jsonPipelines = 'http://localhost:8080/practice/js/pipelines.json'
+const jsonProcessesURL = 'http://localhost:8080/frontend/js/processes.json';
+const jsonClientsURL = 'http://localhost:8080/frontend/js/clients.json';
+const jsonPipelines = 'http://localhost:8080/frontend/js/pipelines.json'
 
 let x
 let y
@@ -60,7 +60,7 @@ function populateClientList(){
             const li = document.createElement('li');
             const a = document.createElement('a'); 
             a.textContent = optionText.clientName;
-            a.href = '/practice/pages/client.html'; 
+            a.href = '/frontend/pages/client.html'; 
             li.appendChild(a)
             clientsUlElement.appendChild(li);
         });
@@ -87,7 +87,7 @@ function popuplatePipelinesTable(){
             const td2 = document.createElement('td');
             const a = document.createElement('a'); 
             a.textContent = p.pipelineName;
-            a.href = '/practice?pid='+p.pipelineId; 
+            a.href = '/frontend?pid='+p.pipelineId; 
 
             td2.appendChild(a)
             tr.appendChild(td2);
@@ -97,7 +97,7 @@ function popuplatePipelinesTable(){
             tablePipelines.appendChild(tr)
         })
         // <td>1</td>
-        // <td><a href="/practice/">pipe1</a></td>
+        // <td><a href="/frontend/">pipe1</a></td>
         // <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
     })
 }
