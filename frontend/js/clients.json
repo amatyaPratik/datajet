@@ -1,0 +1,18 @@
+[
+    {"clientName": "Aetna", "clientId": 1},
+    {"clientName": "Anthem", "clientId": 12},
+    {"clientName": "Highmark", "clientId": 23},
+    {"clientName": "Coventry", "clientId": 25},
+    {"clientName": "QA-TEST-Do_not_touch", "clientId": 26},
+    {"clientName": "SantaClara", "clientId": 28},
+    {"clientName": "AetnaDuals", "clientId": 31},
+    {"clientName": "AETAH", "clientId": 36},
+    {"clientName": "AETIH", "clientId": 37},
+    {"clientName": "Cambia", "clientId": 39},
+    {"clientName": "LocalDev", "clientId": 42},
+    {"clientName": "SmokeTest", "clientId": 43},
+    {"clientName": "AllTest", "clientId": 44},
+    {"clientName": "PHP", "clientId": 49},
+    {"clientName": "JHCC", "clientId": 50},
+    {"clientName": "AetnaMRA", "clientId": 51}
+]

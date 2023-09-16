@@ -1,0 +1,132 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Foldit:wght@400;500;600&family=Great+Vibes&family=Londrina+Sketch&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300&family=Roboto:wght@100;300;400;900&family=Rubik+Beastly&family=Sacramento&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+} 
+ 
+.btn, input[type="checkbox"]{
+    cursor: pointer;
+}
+.btn:disabled, input[type="checkbox"]:disabled{
+    cursor: not-allowed !important;
+}
+
+.background-node {
+     text-overflow: clip;
+     overflow: hidden;
+     word-wrap:break-word;
+     fill: rgba(0, 0, 0, 0.2); /* Transparent black background */
+}
+/* Style for the label text */
+.label-text {
+     font-size: 12px;
+    text-anchor: middle; /* Center the text horizontally */
+    dominant-baseline: central; /* Center the text vertically */
+     fill: white; /* White text color */
+     text-overflow:clip;
+}
+
+svg g.running rect{
+    /* fill: coral !important; */
+    stroke-width: 4px;
+    stroke: coral !important;
+} 
+
+svg g.complete rect{
+    /* fill: greenyellow !important; */
+    stroke-width: 4px;
+    stroke: green !important;
+} 
+
+svg g.failed rect{
+    /* fill: greenyellow !important; */
+    stroke-width: 4px;
+    stroke: crimson !important;
+} 
+
+#menu-tray{
+	display: inline-block;
+	position: absolute;
+	right: 0;
+    top: 0; 
+    padding: 10px;
+}
+#menu-tray button{
+    border: 0;
+    outline: 0;
+    background-image: url('../images/dots-menu.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+#menu-panel{
+    padding: .4rem .3rem;
+    border-radius: 4px 0 0 4px;
+    position: absolute;
+    background-color:#31006f;   
+    backdrop-filter:  blur(4px); 
+    opacity: .5;
+    z-index: 2;
+    width: 18vw;
+    right: 0;
+    color: white;
+    font-size: 1.2rem;
+    transition: 200ms all;
+}
+
+#menu-panel.display{
+    right: 0;
+}
+#menu-panel.hide{
+    right: -500px;
+}
+
+#menu-panel #menu-panel input{
+    right: 0;
+}
+
+#menu-panel img{
+    position: absolute;
+    right: 1rem;
+    z-index: 3;
+}
+ 
+diaglog#process-config-form{ 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 300px; */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+    border-radius: 4px !important;
+}
+dialog::backdrop{
+    background-color: rgba(0,0,0,.1);
+    backdrop-filter: blur(1px);
+}
+
+#chart-area{
+    margin: 0 auto;
+}
+
+dialog#process-config-modal{
+    width: 40vw;
+    border-radius: 8px;
+    padding: 10px 20px;
+}

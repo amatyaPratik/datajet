@@ -1,0 +1,98 @@
+[
+    {
+        "pipelineName":"pipe1",
+        "pipelineId":1,
+        "processes":[
+            {
+                "name":"Schema Data Transfer",
+                "code":"schema-data-transfer",
+                "status":"complete",
+                "pid":1
+            },
+            {   
+                "name":"Data Load",
+                "code":"data-load",
+                "status":"complete",
+                "pid":2
+            },
+            {
+                "name":"Custom Load",
+                "code":"custom-load",
+                "status":"complete",
+                "pid":3
+            },
+            {
+                "name":"Imputed claims",
+                "code":"imputed-claims",
+                "status":"complete",
+                "pid":4
+            },
+            {
+                "name":"Data Profiler",
+                "code":"data-profiler",
+                "status":"complete",
+                "pid":5
+            },
+            {
+                "name":"Prelim",
+                "code":"prelim",
+                "status":"complete",
+                "pid":6
+            },
+            {
+                "name":"QC Automation",
+                "code":"qc-automation",
+                "status":"running",
+                "pid":7
+            }
+        ]
+    },
+    {
+        "pipelineName":"pipe2",
+        "pipelineId":2,
+        "processes":[
+            {
+                "name":"Schema Data Transfer",
+                "code":"schema-data-transfer",
+                "status":"complete",
+                "pid":1
+            },
+            {   
+                "name":"Data Load",
+                "code":"data-load",
+                "status":"complete",
+                "pid":2
+            },
+            {
+                "name":"Custom Load",
+                "code":"custom-load",
+                "status":"running",
+                "pid":3
+            },
+            {
+                "name":"Imputed claims",
+                "code":"imputed-claims",
+                "status":"failed",
+                "pid":4
+            }
+        ]
+    },
+    {
+        "pipelineName":"pipe3",
+        "pipelineId":3,
+        "processes":[
+            {
+                "name":"Schema Data Transfer",
+                "code":"schema-data-transfer",
+                "status":"complete",
+                "pid":1
+            },
+            {   
+                "name":"Data Load",
+                "code":"data-load",
+                "status":"failed",
+                "pid":2
+            }
+        ]
+    }
+]

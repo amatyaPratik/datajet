@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./client.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <title>Client | Example</title>
+</head>
+<body>
+    <div class="container text-center pt-5">
+        <h1 class="pb-3">Client | Test1</h1>
+        <div class="btn-group">
+            <button class="btn btn-primary btn-lg" onclick="displayPipelinesPage()" id="btn-pipelines"> Pipelines</button>
+            <button class="btn btn-secondary btn-lg" onclick="displayLogsPage()" id="btn-logs">Logs</button>    
+        </div> 
+
+        <div id="pipelines-table" class="show">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>sn</th>
+                        <th>pipelines</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td>1</td>
+                        <td><a href="/practice/">pipe1</a></td>
+                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="/practice/">pipe1</a></td>
+                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><a href="/practice/">pipe1</a></td>
+                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
+                    </tr> -->
+                </tbody>
+            </table> 
+    
+            <button class="btn btn-light btn-lg mt-5" type="button" onclick="createNewPipeline()">
+                Create new Pipeline
+            </button>
+        </div>
+
+        <table border="1" id="logs-table" class="hide">
+            <thead>
+                <tr>
+                    <th>sn</th>
+                    <th>pipeline name</th>
+                    <th>created date</th>
+                    <th>last rundate</th>
+                    <th>status</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>pipe1</td>
+                    <td>7-6-2022 | 01:00pm</td>
+                    <td>7-6-2022 | 02.03pm</td>
+                    <td>inprogress</a></td>
+                    <td>
+                        <!-- <i class="fa-solid fa-play"></i> .  -->
+                        <i class="fa-solid fa-pause"></i> .
+                        <!-- <i class="fa-solid fa-rotate-right"></i>.  -->
+                        <i class="fa-solid fa-list" onclick="openLogModal()"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>pipe2</td>
+                    <td>7-6-2022 | 01:00pm</td>
+                    <td>-</td>
+                    <td>queued</a></td>
+                    <td>
+                        <i class="fa-solid fa-play"></i>  
+                        <!-- <i class="fa-solid fa-pause"></i> . -->
+                        <!-- <i class="fa-solid fa-rotate-right"></i>.  -->
+                        <!-- <i class="fa-solid fa-list" onclick="openLogModal()"></i> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>pipe3</td>
+                    <td>7-6-2022 | 01:00pm</td>
+                    <td>7-6-2022 | 02.03pm</td>
+                    <td>failed</a></td>
+                    <td>
+                        <!-- <i class="fa-solid fa-play"></i> .  -->
+                        <!-- <i class="fa-solid fa-pause"></i> . -->
+                        <i class="fa-solid fa-rotate-right"></i>. 
+                        <i class="fa-solid fa-list" onclick="openLogModal()"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <dialog id="process-logs-modal">
+		<h3 class="title d-flex justify-content-between"><span> Process Logs </span> <button class="btn btn-light" onclick="closeLogs()"><i class="fa-solid fa-xmark"></i></button></h3>
+		<hr>  
+        
+        <table border="1" id="logs-table" class="hide">
+            <thead>
+                <tr>
+                    <th>TYPE</th>
+                    <th>REPORT TIME</th>
+                    <th>MESSAGE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:00:00</td>
+                    <td>RabbitMQ Connection Established</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:05:12</td>
+                    <td>Publishing message to 'orders' exchange: {"user_id": 123, "product": "Widget", "quantity": 5}</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:05:12</td>
+                    <td>Message published successfully</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:08:30</td>
+                    <td>Consuming message from 'payments' queue: {"order_id": 456, "total_amount": 50.00}</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:06:30</td>
+                    <td>Payment processed for order ID 456.</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:12:42</td>
+                    <td>Consuming message from 'inventory' queue: {"product_id": 789, "quantity": 3}</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:15:42</td>
+                    <td>Error processing inventory update for product ID 789</td>
+                </tr>
+                <tr>
+                    <td>[INFO]</td>
+                    <td>2023-09-15 10:15:42</td>
+                    <td>RabbitMQ Error: Insufficient stock for product ID 789</td>
+                </tr>
+                
+	</dialog>	   
+
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ 
+    <script src="../js/setup-ui.js"></script>
+    <script src="../js/processes.js"></script>
+    <script src="./client.js"></script>
+</body>
+</html>

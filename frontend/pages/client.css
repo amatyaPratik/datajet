@@ -1,0 +1,77 @@
+#pipeLines-menu{
+    background-color: lightgray;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#menu-tray button{
+    background-image: url('../images/dots-menu.png');
+}
+
+#pipeline-tabs{
+    background-color:#31006f;   
+    backdrop-filter:  blur(4px); 
+    opacity: .5;
+    position: relative;
+}
+
+.pipeline-tab{
+    color: white;
+    padding: .4rem .7rem; 
+    backdrop-filter:  blur(4px); 
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border: .1px solid lightgray;
+    border-radius: 4px 4px 0 0 ; 
+    /* -4px -4px  */
+}
+
+.pipeline-tab.active, .pipeline-tab:hover{
+    /* background-color: #503870; */
+    box-shadow: 0 0 5px black;
+    border-radius: 4px 4px -4px -4px ; 
+}
+
+
+.btn-run-pipeline{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: transparent;  
+}
+
+div.show table, table.show{
+    margin: 10rem auto 0 auto;
+    font-size: 1.3rem;
+}
+
+table td, table th{
+    padding: .3rem .6rem;
+}
+
+div.hide, table.hide{
+    display: none;
+}
+
+#logs-table tr td:last-child i{ 
+    margin: 0 1rem;
+    cursor: pointer;
+    /* width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: transparent; */
+}
+
+#process-logs-modal{
+    position: relative;
+    width: 80vw;
+    max-height: 87vh;
+    overflow: auto;
+}
+
+#process-logs-modal table{
+    display: inline-block;
+    table-layout: auto;
+}

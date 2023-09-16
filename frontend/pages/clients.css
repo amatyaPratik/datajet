@@ -1,0 +1,21 @@
+ol#clients-list{
+    /* list-style-type: none; */
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ol#clients-list li{
+    width: 100%;
+    padding: .3rem .5rem;
+    cursor: pointer;
+}
+ol#clients-list li:hover{
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    text-decoration: underline;
+}
+
+ol#clients-list li a{
+    text-decoration: none;
+    /* color: white !important; */
+}
