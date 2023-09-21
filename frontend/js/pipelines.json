@@ -1,92 +1,130 @@
 [
     {
-        "pipelineName":"pipe1",
+        "pipelineName":"pipeline-1",
         "pipelineId":1,
         "processes":[
-            {
-                "name":"Schema Data Transfer",
-                "code":"schema-data-transfer",
-                "status":"complete",
-                "pid":1
+            {   
+                "order":1,
+                "process":[{
+                    "name":"Schema Data Transfer",
+                    "code":"schema-data-transfer",
+                    "pid":1
+                }]
             },
             {   
-                "name":"Data Load",
-                "code":"data-load",
-                "status":"complete",
-                "pid":2
+                "order":2,
+                "process":[{
+                    "name":"Data Load",
+                    "code":"data-load",
+                    "pid":2
+                }]
             },
             {
-                "name":"Custom Load",
-                "code":"custom-load",
-                "status":"complete",
-                "pid":3
+                "order":3,
+                "process":[{
+                    "name":"Custom Task",
+                    "code":"custom-load",
+                    "pid":3
+                }]
             },
             {
-                "name":"Imputed claims",
-                "code":"imputed-claims",
-                "status":"complete",
-                "pid":4
+                "order":4,
+                "process":[{
+                    "name":"Jira Task",
+                    "code":"jira-task",
+                    "pid":4
+                }]
             },
             {
-                "name":"Data Profiler",
-                "code":"data-profiler",
-                "status":"complete",
-                "pid":5
+                "order":5,
+                "process":[
+                    {
+                        "name":"Data Profiler",
+                        "code":"data-profiler",
+                        "pid":5
+                    },
+                    {
+                        "name":"Email Notifier",
+                        "code":"email-notifier",
+                        "pid":6
+                    }
+                ]
             },
             {
-                "name":"Prelim",
-                "code":"prelim",
-                "status":"complete",
-                "pid":6
+                "order":6,
+                "process":[
+                    {
+                        "name":"QC Automation",
+                        "code":"qc-automation",
+                        "pid":7
+                    }
+                ]
             }
         ]
     },
     {
-        "pipelineName":"pipe2",
+        "pipelineName":"pipeline-2",
         "pipelineId":2,
         "processes":[
-            {
-                "name":"Schema Data Transfer",
-                "code":"schema-data-transfer",
-                "status":"complete",
-                "pid":1
+                {   
+                    "order":1,
+                    "process":[{
+                        "name":"Schema Data Transfer",
+                        "code":"schema-data-transfer",
+                        "pid":1
+                    }]
+                },
+                {   
+                    "order":2,
+                    "process":[{
+                        "name":"Data Load",
+                        "code":"data-load",
+                        "pid":2
+                    }]
+                },
+                {
+                    "order":3,
+                    "process":[{
+                        "name":"Custom Task",
+                        "code":"custom-load",
+                        "pid":3
+                    }]
+                },
+                {
+                    "order":4,
+                    "process":[{
+                        "name":"Jira Task",
+                        "code":"jira-task",
+                        "pid":4
+                    }]
+                }
+            ]
+    },
+    {
+        "pipelineName":"pipeline-3",
+        "pipelineId":3,
+        "processes":[
+            {   
+                "order":1,
+                "process":[{
+                    "name":"Schema Data Transfer",
+                    "code":"schema-data-transfer",
+                    "pid":1
+                }]
             },
             {   
-                "name":"Data Load",
-                "code":"data-load",
-                "status":"complete",
-                "pid":2
-            },
-            {
-                "name":"Custom Load",
-                "code":"custom-load",
-                "status":"running",
-                "pid":3
-            },
-            {
-                "name":"Imputed claims",
-                "code":"imputed-claims",
-                "status":"failed",
-                "pid":4
+                "order":2,
+                "process":[{
+                    "name":"Data Load",
+                    "code":"data-load",
+                    "pid":2
+                }]
             }
         ]
     },
     {
-        "pipelineName":"pipe3",
-        "pipelineId":3,
-        "processes":[
-            {
-                "name":"Schema Data Transfer",
-                "code":"schema-data-transfer",
-                "status":"complete",
-                "pid":1
-            },
-            {   
-                "name":"Data Load",
-                "code":"data-load",
-                "status":"failed",
-                "pid":2
-            }
-        ]
+        "pipelineName":"pipeline-4",
+        "pipelineId":4,
+        "processes":[]
     }
 ]

@@ -1,6 +1,10 @@
 const jsonProcessesURL = 'http://localhost:8080/frontend/js/processes.json';
 const jsonClientsURL = 'http://localhost:8080/frontend/js/clients.json';
 const jsonPipelines = 'http://localhost:8080/frontend/js/pipelines.json'
+const jsonRunningPipelines = 'http://localhost:8080/frontend/js/running-pipelines.json'
+
+let isRunningPipeline = false
+let totalProcesses
 
 let x
 let y
@@ -13,11 +17,18 @@ function setupXxsScaleBand(data, dataKey){
     .paddingInner(1.)
     .paddingOuter(.2) 
 }
+
+function recalculateXxsScale(maxOrder){
+    //setup the x-axis position function / scale
+    x = d3.scaleBand()  
+    .domain([1,maxOrder])
+    .range([0,WIDTH])
+    .paddingInner(1.)
+    .paddingOuter(.2) 
+}
 // Function to fetch and populate select options
-function populateSelect() {
-    // Select the <select> element
-    const processSelectElement  = document.getElementById('process-select');
-    // const orderSelectElement  = document.getElementById('order-select');
+function populateProcessSelect() { 
+    const processSelectElement  = document.getElementById('process-select'); 
 
     if(!processSelectElement) return
 
@@ -26,27 +37,54 @@ function populateSelect() {
         .then(response => response.json())
         .then(data => {
             console.log('data:',data); 
+            totalProcesses = data.length
 
             setupXxsScaleBand(data, 'pid')
             
             // Loop through the options array and create <option> elements
             data.forEach(optionText => {
+                //debugger
                 const option1 = document.createElement('option');
                 option1.textContent = optionText.name;
                 option1.value = optionText.code; 
+                option1.setAttribute('name',optionText.name) 
+                option1.setAttribute('pid',optionText.pid) 
                 processSelectElement.appendChild(option1);
-            });
-
-            // data.forEach(optionText => {
-            //     const option2 = document.createElement('option');
-            //     option2.textContent = optionText.pid;
-            //     option2.value = optionText.pid; 
-            //     orderSelectElement.appendChild(option2);
-            // })
+            }); 
         })
         .catch(error => {
             console.error('Error loading JSON:', error);
         }); 
+    
+        isRunningPipeline = new URLSearchParams(window.location.search).get('running') == 'true'
+
+        console.log('isRunningPipeline: ',isRunningPipeline); 
+        const pipelineStatus = document.getElementsByClassName('pipeline-status')[0]
+
+        if(isRunningPipeline){  
+            pipelineStatus.textContent = 'Running'
+            document.body.classList.remove('stopped') 
+            document.body.classList.add('running') 
+            const btnRun = document.getElementById('btn-run') 
+            btnRun.classList.add('hide')
+        }else{ 
+            pipelineStatus.textContent = 'Create'
+            new URLSearchParams(window.location.search).set('running',false)
+            document.body.classList.add('stopped') 
+            document.body.classList.remove('running')
+            const btnStop = document.getElementById('btn-stop')  
+            btnStop.classList.add('d-none')
+        }
+}
+
+
+function openDialogTab(tabind){
+    console.log('here');
+    const processConfigModal = document.getElementById('process-config-modal')
+
+    const className = processConfigModal.className
+    
+    processConfigModal.className = className.replace(className.substring(className.length-1),tabind)
 }
 
 function populateClientList(){
@@ -60,7 +98,7 @@ function populateClientList(){
             const li = document.createElement('li');
             const a = document.createElement('a'); 
             a.textContent = optionText.clientName;
-            a.href = '/frontend/pages/client.html'; 
+            a.href = '/frontend/pages/client.html?clientName='+optionText.clientName+'&clientId='+optionText.clientId; 
             li.appendChild(a)
             clientsUlElement.appendChild(li);
         });
@@ -87,40 +125,46 @@ function popuplatePipelinesTable(){
             const td2 = document.createElement('td');
             const a = document.createElement('a'); 
             a.textContent = p.pipelineName;
-            a.href = '/frontend?pid='+p.pipelineId; 
+            a.href = `/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}`; 
 
             td2.appendChild(a)
             tr.appendChild(td2);
 
-            tr.innerHTML += '<td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>'
+            tr.innerHTML += `<td>
+                            <button class="btn-run-pipeline">
+                                <a href="/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}&running=true">
+                                    <i class="fa-solid fa-play"></i>
+                                </a>
+                            </button>
+                            </td>
+                            `
 
             tablePipelines.appendChild(tr)
-        })
-        // <td>1</td>
-        // <td><a href="/frontend/">pipe1</a></td>
-        // <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
+        }) 
     })
 }
 
 function yLinearBand(count){
     //setup the y-axis position function / scale
-     y = d3.scaleLinear()
-    .domain([0,count])
-    .range([HEIGHT/2-0.25*HEIGHT+rh/2, HEIGHT/2+0.25*HEIGHT-rh/2]);
+    //  y = d3.scaleLinear()
+    // .domain([0,count])
+    // .range([HEIGHT-rh/2, rh/2]);
 
-    console.log('yscale up');
-    // .paddingInner(1.)
-    // .paddingOuter(.2)
+    y= d3.scaleBand()
+    .domain([1,count])
+    .range([rh+margin.TOP, HEIGHT-rh]) // Available vertical space
+    .padding(0.5); // Adjust the padding as needed (0.1 for a small gap between bands)
+    console.log('yscale up'); 
 }
 
 function toggleMenuPanel(){
     const menuPanel = document.getElementById('menu-panel')
     if(menuPanel.classList.contains('hide')){
         menuPanel.classList.remove('hide')
-        menuPanel.classList.add('display')
+        menuPanel.classList.addProcess('display')
     }
     else{
-        menuPanel.classList.add('hide')
+        menuPanel.classList.addProcess('hide')
         menuPanel.classList.remove('display')
     }
 } 
@@ -138,6 +182,31 @@ function openProcessModal(e){
         processConfigModal.close(0)
     }
     processConfigModal.showModal()
+}
+
+function stopPipeline(){ 
+    window.location.replace(`${window.location.href}`.replace('running=true','running=false'))
+}
+
+function runPipeline(){ 
+    if(window.location.href.includes('&running='))
+        window.location.replace(`${window.location.href}`.replace('running=false','running=true'))
+    else
+        window.location.replace(`${window.location.href}&running=true`)  //set running=true for freshly created pipeline
+}
+
+function rerunPipeline(){
+    runPipeline()
+}
+ 
+function editPipeline(){
+    
+    const btnStop = document.getElementById('btn-stop')
+    // const btnEdit = document.getElementById('btn-edit')
+
+    btnStop.className = 'btn btn-lg btn-primary'
+    // btnEdit.className = 'btn btn-lg btn-secondary' 
+    
 }
 
 /**
@@ -170,6 +239,6 @@ function clearSVG(){
 }
 
 // Call the populateSelect function to populate the options
-populateSelect();
+populateProcessSelect();
 populateClientList();
 popuplatePipelinesTable()

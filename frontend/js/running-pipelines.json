@@ -1,0 +1,45 @@
+[
+    {
+    "pipelineName":"pipeline-2",
+    "pipelineId":2,
+    "status":"inprogress",
+    "processes":[
+            {   
+                "order":1,
+                "process":[{
+                    "name":"Schema Data Transfer",
+                    "code":"schema-data-transfer",
+                    "status":"complete",
+                    "pid":1
+                }]
+            },
+            {   
+                "order":2,
+                "process":[{
+                    "name":"Data Load",
+                    "code":"data-load",
+                    "status":"complete",
+                    "pid":2
+                }]
+            },
+            {
+                "order":3,
+                "process":[{
+                    "name":"Custom Task",
+                    "code":"custom-load",
+                    "status":"complete",
+                    "pid":3
+                }]
+            },
+            {
+                "order":4,
+                "process":[{ 
+                    "name":"Jira Task",
+                    "code":"jira-task",
+                    "status":"failed",
+                    "pid":4 
+                }]
+            }
+        ]
+}
+]

@@ -27,27 +27,12 @@
                         <th>action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- <tr>
-                        <td>1</td>
-                        <td><a href="/frontend/">pipe1</a></td>
-                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="/frontend/">pipe1</a></td>
-                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><a href="/frontend/">pipe1</a></td>
-                        <td><button class="btn-run-pipeline"><i class="fa-solid fa-play"></i></button></td>
-                    </tr> -->
+                <tbody> 
                 </tbody>
             </table> 
     
-            <button class="btn btn-light btn-lg mt-5" type="button" onclick="createNewPipeline()">
-                Create new Pipeline
+            <button class="btn btn-light btn-lg mt-5" type="button" onclick="toggleAddNewPipelineModal()" id="btn-add-pipeline">
+                Add New Pipeline
             </button>
         </div>
 
@@ -159,8 +144,21 @@
                     <td>2023-09-15 10:15:42</td>
                     <td>RabbitMQ Error: Insufficient stock for product ID 789</td>
                 </tr>
-                
+                </tbody>
+        </table>
 	</dialog>	   
+
+    <dialog id="add-new-pipeline-modal"> 
+		<form>		
+            <h3 class="title d-flex justify-content-between"><span> Add Pipeline </span> <button type="submit" class="btn btn-light" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button></h3>
+		    <hr>
+			<div class="form-group row">
+				<label class="col-4" for="pipeline-name">Pipeline name:</label>
+				<input type="text" name="pipeline-name" class="form-control col-7" placeholder="your pipeline's name">
+			</div>
+            <button type="button" class="btn btn-primary" onclick="addPipeline()">Add</button>
+        </form>
+    </dialog>
 
     <script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -8,18 +8,22 @@ body{
 }
 
 body{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 } 
  
-.btn, input[type="checkbox"]{
-    cursor: pointer;
+button, .btn, input[type="checkbox"], a{
+    cursor: pointer !important;
 }
 .btn:disabled, input[type="checkbox"]:disabled{
     cursor: not-allowed !important;
+}
+h1 span.pipeline-status{
+    text-transform: uppercase !important;
+    font-style: oblique !important;
 }
 
 .background-node {
@@ -87,7 +91,36 @@ svg g.failed rect{
     font-size: 1.2rem;
     transition: 200ms all;
 }
+body.stopped #panel{
+    display: block;
+}
+body.stopped #btn-run{
+    display: initial;
+}
+body.stopped #btn-stop{
+    display: none;
+}
 
+body.running #panel{
+    display: none;
+}
+body.running #btn-run{
+    display: none;
+}
+body.running #btn-stop{
+    display: initial;
+}
+
+body.running #save-process-config{
+    display: none;
+}
+body.stopped #save-process-config{
+    display: initial;
+}
+
+#panel.hide{
+    display: none;
+}
 #menu-panel.display{
     right: 0;
 }
@@ -127,6 +160,34 @@ dialog::backdrop{
 
 dialog#process-config-modal{
     width: 40vw;
+    min-height: 40vh;
     border-radius: 8px;
     padding: 10px 20px;
+}
+
+dialog#process-config-modal.show-tab-1 .tab-prop-config{
+    display: block;
+}
+
+dialog#process-config-modal.show-tab-1 .tab-process-logs{
+    display: none;
+}
+
+dialog#process-config-modal.show-tab-2 .tab-prop-config{
+    display: none;
+}
+
+dialog#process-config-modal.show-tab-2 .tab-process-logs{
+    display: block;
+}
+
+dialog#process-config-modal .props-form h4 span[class^="dialog-tab"]{
+    cursor: pointer;
+    border-radius: 0 5px 0 0;
+    /* border-top: 1px solid gainsboro; */
+    /* border-right: 1px solid gainsboro; */
+    border-right: 2px solid gray;
+    display: inline-block;
+    height: 100%;
+    padding: 10px;
 }

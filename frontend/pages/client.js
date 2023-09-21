@@ -54,32 +54,73 @@ function setUpPipeline(pipelineId){
             .attr('ry',4) 
             .attr("stroke-width", 1.2); 
   
-            // Add the processValue as a label text within the group
-            group.append("text")
-                .attr("x", 10) 
-                .attr("y", 30)  
-                .attr('width',rw)
-                .style('color','red')
-                .text(process.name)
+            // Create a foreignObject to hold the text with wrapping
+            const foreignObject = group.append("foreignObject")
+            .attr("width", rw) // Set the same width n height as the rect
+            .attr("height", rh)
+
+            // Create a nested div element for the text
+            foreignObject.append("xhtml:div")
+            .style("width", rw + "px") // Set the width to match the rect
+            .style("height", rh + "px") // Set the height to match the rect
+            .style("overflow-wrap", "break-word") // Enable word wrapping
+            .style("line-height",".9")
+            .style("display","flex")
+            .style("justify-content","center")
+            .style("align-items","center")
+            .text(pName);
     
             // Add a click event listener to the group
             group.on("click", function(e) {
                 console.log("Hello");
                 openProcessModal(e)
             });
-            drawLine(process.pid)
+            drawLineFromPreviousProcess(process.pid)
         }) 
         
         console.log('currentPipeline: ',currentPipeline);
     })
 }
 
+function toggleAddNewPipelineModal(){
+    // debugger;
+    const newPipelineForm = document.getElementById('add-new-pipeline-modal')
+
+    if(newPipelineForm.getAttribute('open')===''){
+        newPipelineForm.close()
+        return    
+    }
+    newPipelineForm.showModal()
+}
+
+function addPipeline(){
+    const newPipelineForm = document.getElementById('add-new-pipeline-modal')
+    const newPipeLineName = newPipelineForm.getElementsByTagName('input')[0].value
+    const pipelinesTableBody = document.querySelector('#pipelines-table tbody')
+    const trCount = pipelinesTableBody.querySelectorAll('tr').length
+    pipelinesTableBody.innerHTML += `
+                                    <tr>
+                                        <td>${trCount+1}</td>
+                                        <td><a href="/frontend/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}">${newPipeLineName}</a></td>
+                                        <td>
+                                            <button class="btn-run-pipeline" disabled>
+                                                <a href="/frontend/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}&running=true" style="pointer-events:none;">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    `
+    console.log('newPipeLineName: ',newPipeLineName);
+    toggleAddNewPipelineModal()
+}
+
 function openLogModal(){
     const logModal = document.getElementById('process-logs-modal') 
-    logModal.showModal() 
+    logModal.showModal()
 }
 
 function closeLogs(){
     const logModal = document.getElementById('process-logs-modal') 
-    logModal.close() 
+    logModal.close()
 }

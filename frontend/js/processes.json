@@ -2,43 +2,36 @@
     {
         "name":"Schema Data Transfer",
         "code":"schema-data-transfer",
-        "status":"complete",
         "pid":1
     },
     {   
         "name":"Data Load",
         "code":"data-load",
-        "status":"complete",
         "pid":2
     },
     {
-        "name":"Custom Load",
+        "name":"Custom Task",
         "code":"custom-load",
-        "status":"pending",
         "pid":3
     },
     {
-        "name":"Imputed claims",
-        "code":"imputed-claims",
-        "status":"failed",
+        "name":"Jira Task",
+        "code":"jira-task",
         "pid":4
     },
     {
         "name":"Data Profiler",
         "code":"data-profiler",
-        "status":"complete",
         "pid":5
     },
     {
-        "name":"Prelim",
-        "code":"prelim",
-        "status":"running",
+        "name":"Email Notifier",
+        "code":"email-notifier", 
         "pid":6
     },
     {
         "name":"QC Automation",
         "code":"qc-automation",
-        "status":"complete",
         "pid":7
     }
 ]
