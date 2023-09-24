@@ -2,7 +2,7 @@
     {
         "pipelineName":"pipeline-1",
         "pipelineId":1,
-        "processes":[
+        "executions":[
             {   
                 "order":1,
                 "process":[{
@@ -39,8 +39,8 @@
                 "order":5,
                 "process":[
                     {
-                        "name":"Data Profiler",
-                        "code":"data-profiler",
+                        "name":"Data Scrub",
+                        "code":"data-scrub",
                         "pid":5
                     },
                     {
@@ -54,8 +54,8 @@
                 "order":6,
                 "process":[
                     {
-                        "name":"QC Automation",
-                        "code":"qc-automation",
+                        "name":"Gemini",
+                        "code":"gemini",
                         "pid":7
                     }
                 ]
@@ -65,7 +65,7 @@
     {
         "pipelineName":"pipeline-2",
         "pipelineId":2,
-        "processes":[
+        "executions":[
                 {   
                     "order":1,
                     "process":[{
@@ -103,7 +103,7 @@
     {
         "pipelineName":"pipeline-3",
         "pipelineId":3,
-        "processes":[
+        "executions":[
             {   
                 "order":1,
                 "process":[{
@@ -125,6 +125,6 @@
     {
         "pipelineName":"pipeline-4",
         "pipelineId":4,
-        "processes":[]
+        "executions":[]
     }
 ]

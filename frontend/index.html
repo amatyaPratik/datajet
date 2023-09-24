@@ -43,7 +43,7 @@
 			</div>   
 			<div class="row mb-3">
 				<button type="button" id="btn-add" class="btn-primary btn" onclick="addProcess()" disabled>Add</button>
-				<button type="button" id="btn-save" class="btn-warning ml-3 btn" onclick="save()" disabled>Save</button>
+				<button type="button" id="btn-save" class="btn-warning ml-3 btn" onclick="save()">Save</button>
 			</div>	
 		</div>
 			<!-- <div class="btn-group" style="margin: 0rem auto;">
@@ -63,35 +63,106 @@
 				<button type="submit" class="btn btn-light ml-auto px-3" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button></h4>
 			<hr>
 			<div class="tab-prop-config">
-				<div class="form-group row">
+				<!-- <div class="form-group row general-tab-prop">
 					<label class="col-4" for="prop1">Prop 1</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div>
-				<div class="form-group row">
+				<div class="form-group row general-tab-prop">
 					<label class="col-4" for="prop1">Prop 2</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div>
-				<div class="form-group row">
+				<div class="form-group row general-tab-prop">
 					<label class="col-4" for="prop1">Prop 3</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div>
-				<div class="form-group row">
+				<div class="form-group row general-tab-prop">
+					<label class="col-4" for="prop1">Prop 4</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
+				</div>  -->
+
+				<!-- for Dataload process -->
+				<div class="form-group row dataload-tab-prop">
+					<label class="col-4" for="prop1">Source Schema</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Source's Schema">
+				</div> 
+				<div class="form-group row dataload-tab-prop">
+					<label class="col-4" for="prop1">Target Schema</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Target's Schema">
+				</div>
+				<div class="form-group row dataload-tab-prop">
+					<label class="col-4" for="prop1">Prop 3</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
+				</div>
+				<div class="form-group row dataload-tab-prop">
 					<label class="col-4" for="prop1">Prop 4</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div> 
+
+				<!-- for Datascrub process -->
+				<div class="form-group row datascrub-tab-prop">
+					<label class="col-4" for="prop1">Script location</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Script's location">
+				</div> 
+				<div class="form-group row datascrub-tab-prop">
+					<label class="col-4" for="prop1">Schema</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Schema">
+				</div> 
+
+				<!-- for jiratask process -->
+				<div class="form-group row jiratask-tab-prop">
+					<label class="col-4" for="prop1">Ticket ID</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter JIRA ticket id">
+				</div> 
+				<div class="form-group row jiratask-tab-prop">
+					<label class="col-4" for="prop1">Phase</label>
+					<select name="jira-phase-select" id="">
+						<option value="-1" default>choose ticket phase</option>
+						<option value="import">import</option>
+						<option value="data scrub">data scrub</option>
+						<option value="gemini">gemini</option>
+						<option value="proc1">proc1</option>
+						<option value="proc2">proc2</option>
+					</select>
+				</div> 
+
+				<!-- for Datascrub process -->
+				<div class="form-group row datascrub-tab-prop">
+					<label class="col-4" for="prop1">Script location</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Script's location">
+				</div> 
+				<div class="form-group row datascrub-tab-prop">
+					<label class="col-4" for="prop1">Schema</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter Schema">
+				</div>
+
+				<!-- for email process -->
+				<div class="form-group row email-tab-prop">
+					<label class="col-4" for="prop1">To</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="Enter recipent">
+				</div> 
+				<div class="form-group row email-tab-prop">
+					<label class="col-4" for="prop1">CC</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="enter collaborators">
+				</div> 
+				<div class="form-group row email-tab-prop">
+					<label class="col-4" for="prop1">Subject</label>
+					<input type="text" name="prop1" class="form-control col-7" placeholder="subject">
+				</div> 
+
 				<button type="submit" class="mt-2 btn btn-primary" id="save-process-config">Save</button>
-			</div>
-			<div class="tab-process-logs"> 
-				<ul>
-					<li>03/22 08:51:01 INFO   :.main: *************** RSVP Agent started ***************</li>
-					<li>03/22 08:51:01 INFO   :..settcpimage: Associate with TCP/IP</li>
-					<li>03/22 08:51:02 INFO   :..reg_process: registering process w</li>
-					<li>03/22 08:51:06 TRACE  :...read_physical_netif: Home list entries returned = 7</li>
-					<li>03/22 08:51:06 INFO   :...read_physical_netif: index #1, interface TR1 has address 9.37.65.139, ifidx 1</li>
-				</ul>
-				<button class="btn btn-warning position-absolute mb-0 fw-bold" style="bottom: 1rem;">Rerun Process</button>
-			</div>
+			</div> 
 		</form>  
+		<div class="tab-process-logs"> 
+			<ul>
+				<li>03/22 08:51:01 INFO   :.main: *************** Oracle Agent started ***************</li>
+				<li>03/22 08:51:01 INFO   :..settcpimage: Associate with Oracle: JDBC</li>
+				<li>03/22 08:51:02 INFO   :..reg_process: registering process w</li>
+				<li>03/22 08:51:06 TRACE  :...read_physical_netif: Schema list entries returned = 7</li>
+				<li>03/22 08:51:06 INFO   :...read_physical_space: checking available disk space</li>
+				<li>03/22 08:51:56 ERROR   :...DATA LOAD FAILED !!!</li>
+			</ul>
+			<button class="btn btn-warning position-absolute mb-0 fw-bold" style="bottom: 1rem;" onclick="rerunProcess()">Rerun Process</button>
+		</div>
 	</dialog>	
 
 	<!-- External JS libraries -->

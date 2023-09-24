@@ -1,21 +1,42 @@
-let processes
-// let executionOrder = 0
+let selectedProcesses 
 let parallelCounter
 let tempProcessesModel = []
+const db_key_pipelines = 'local_pipeline-'
+let chooseToRerunProcess = false
 
 const currentPipeline = {
     pipelineName: '',
     pipelineId: '',
-    processes:[]
+    executions:[]
+}
+
+function getProcessInfoFromProcessName(pName){
+    const options = document.querySelectorAll('#process-select option')
+
+    for(opt of options){
+        if(opt.getAttribute('value')==-1) continue;
+
+        if(opt.getAttribute('name')==pName)
+            return {'code': opt.getAttribute('value'), 'pid': opt.getAttribute('pid')}
+    }
+    return 
 }
 
 // const takenExecutionOrders = new Set()
+function isCurrentOrderAlreadyInPipeline(currentOrder){
+    let yes = false
+    currentPipeline.executions.forEach(p=>{
+        console.log('p: ',p);
+        if(p.order===currentOrder) yes = true
+    })
+    return yes
+}
 
 function queueProcess(pName, pOrder, parallels = 0){
     //debugger;
     console.log('qOrder', pOrder);
     console.log('pName: ',pName); 
- 
+  
     addNode(pName, pOrder, parallels)
 } 
 
@@ -27,7 +48,7 @@ function multiProcessesSelectCheck(){
     // selectedProcessNames =  Array.from(document.getElementById("process-select").selectedOptions).map(opt=>opt.value) 
     console.log('selectedProcessNames: ',selectedProcessNames);
 
-    const selectedProcesses = Array.from(document.getElementById("process-select").selectedOptions)
+    selectedProcesses = Array.from(document.getElementById("process-select").selectedOptions)
             .map(opt=>{ return { 
                                     code: opt.value, 
                                     name: opt.getAttribute('name'), 
@@ -38,14 +59,10 @@ function multiProcessesSelectCheck(){
                 
     const addBtn = document.getElementById('btn-add')
     const runParallel = document.getElementById('run-in-parallel')
-    // console.log('executionOrder: ',executionOrder);
+  
+    console.log('selectedProcesses: ',selectedProcesses);
 
-    processes = selectedProcesses
-
-    console.log('processes: ',processes);
-
-    if(processes.length>1 && !processes.includes('-1')){ 
-        console.log('h>1');
+    if(selectedProcesses.length>1 && !selectedProcesses.includes('-1')){
         runParallel.removeAttribute('disabled')    
         if(runParallel.checked)
             addBtn.removeAttribute('disabled')
@@ -53,7 +70,7 @@ function multiProcessesSelectCheck(){
             addBtn.setAttribute('disabled',true)
     }
 
-    else if(processes.length===1 && processes[0].code!=='-1'){
+    else if(selectedProcesses.length===1 && selectedProcesses[0].code!=='-1'){
         runParallel.checked=false
         runParallel.setAttribute('disabled',true)
         addBtn.removeAttribute('disabled')
@@ -114,40 +131,15 @@ function drawObliqueLine(pOrder, tarX, tarY){
         .attr("x2", targetX)
         .attr("y2", targetY)
         .attr("stroke", "black")
-        .attr("stroke-width", 2);
-   
-    // Add an arrowhead marker
-    // svg.append("defs").append("marker")
-    //     .attr("id", "arrow")
-    //     .attr("markerWidth", 10)
-    //     .attr("markerHeight", 10)
-    //     .attr("refX", 9)
-    //     .attr("refY", 3)
-    //     // .attr("orient", "auto") // Add the rotate property here
-    //     .append("path")
-    //     .attr("d", "M0,0 L0,6 L9,3 z")
-    //     .attr("transform",`rotate(90 4.5 3)`)
-    //     .attr("fill", "black");
-   
-    // Apply the arrowhead to the line
-    // svg.selectAll("line")
-    //     .attr("marker-end", "url(#arrow)");
+        .attr("stroke-width", 2); 
    }
  
 function drawLineFromPreviousProcesses(pOrder){  
     const previousOrderProcesses = document.querySelectorAll(`[process-order="${pOrder-1}"]`)
     let previousOrderProcessesCount = previousOrderProcesses.length
-
-    const currentOrderProcesses = document.querySelector(`[process-order="${pOrder}"]`)
-    console.log('previousOrderProcesses: ',previousOrderProcesses);
-    debugger
-    for(const node of previousOrderProcesses){ 
-        debugger
+ 
+    for(const node of previousOrderProcesses){  
         if(node.classList.contains('process-node-parallel-'+(pOrder-1))){
-            // const previousNodeBoundingBox = node.getBoundingClientRect();
-            // const currentNodeBoundingBox = currentOrderProcesses.getBoundingClientRect();
-
-             console.log('gkgkgk');
             drawLine(
                 x(pOrder-1)+rw, 
                 y(previousOrderProcessesCount--)+rh/2,
@@ -254,11 +246,31 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
     }
 }
 
-function runSequentially(ind=0){
-    console.log('hrhr');
-    const processesNodes = document.querySelectorAll('.process-node rect'); 
+function getMaxProcessOrder(){
+    let maxProcessOrder = 0
+    const allProcesses = document.querySelectorAll(`[process-order]`)
+    allProcesses.forEach(p=>{
+        if(maxProcessOrder < p.getAttribute('process-order'))
+            maxProcessOrder = p.getAttribute('process-order')
+    })
+    return maxProcessOrder
+}
 
-    if(ind === processesNodes.length){
+function areAllProcessesInCurrentOrderDone(order){
+    const allProcessesInCurrentOrder = document.querySelectorAll(`[process-order='${order}']`);
+    let yes = true
+    allProcessesInCurrentOrder.forEach(p=>{
+        if(p.querySelector('rect').getAttribute('style') !== 'stroke: green;')
+            yes = false
+    })
+return yes
+}
+
+function runSequentially(ind=1){
+    const pipelineStatus = document.getElementsByClassName('pipeline-status')[0]
+    const btnStop = document.getElementById('btn-stop')  
+
+    if(getMaxProcessOrder() < ind){
         console.log('all done')
         const pipelineStatus = document.getElementsByClassName('pipeline-status')[0]
         pipelineStatus.textContent = 'COMPLETE'
@@ -269,21 +281,69 @@ function runSequentially(ind=0){
         return
     }
     
-    processesNodes[ind].style.stroke = 'orange'
+    console.log('hrhr');
+    const allProcesses = document.querySelectorAll(`[process-order]`); //get all alloted orders that can have multiple processes running in them parallelly
+    const processesInCurrentSlot = []
+    allProcesses.forEach(p=>{
+        if(p.getAttribute('process-order')==(ind))
+            processesInCurrentSlot.push(p)
+    })
+    debugger 
 
-    setTimeout(()=>{
-        setTimeout(()=>{
-            processesNodes[ind].style.stroke = 'green'
-            runSequentially(ind+1)
-        },3000),
-    800})
+        for(const p of processesInCurrentSlot){
+            console.log('p: ',p)
+            p.querySelector('rect').style.setProperty('stroke', 'orange', 'important')
+        } 
+ 
+        for(const p of processesInCurrentSlot){
+            setTimeout(()=>{
+                if(currentPipeline.pipelineId===2 && ind===2 && !chooseToRerunProcess){
+                    p.querySelector('rect').style.stroke = 'red' 
+                    pipelineStatus.textContent = 'ERROR' 
+                    btnStop.classList.add('d-none')
+                }
+                else{
+                    p.querySelector('rect').style.stroke = 'green' 
+                    if(areAllProcessesInCurrentOrderDone(ind)){ 
+                        runSequentially(ind+1)
+                    }
+                }
+            },(2000+Math.random()*3000)) 
+        }    
 }
 
-function checkAllComplete(){
+function rerunProcess(){
+    const pipelineStatus = document.getElementsByClassName('pipeline-status')[0]
+    const btnStop = document.getElementById('btn-stop')  
+    pipelineStatus.textContent = 'RUNNING'
+    btnStop.classList.remove('d-none')
 
+    const processConfigModal = document.getElementById('process-config-modal')
+    processConfigModal.close()  //close/hide the dialog popup upon rerun
+    chooseToRerunProcess = true
+    runSequentially(2)
 }
-
+  
 function save(){
+    // const jsonData = JSON.parse(JSON.stringify(currentPipeline))  //clone currentPipeline
+
+    console.log();
+    localStorage.setItem(db_key_pipelines+currentPipeline.pipelineId,JSON.stringify(currentPipeline))
+      
+    //   fetch('http://localhost:3000/save-pipeline', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(jsonData),
+    //   })
+    //     .then((response) => response.text())
+    //     .then((message) => {
+    //       console.log(message);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error:', error);
+    //     });
 }
 
 
@@ -293,28 +353,47 @@ function fetchConfigOfCurrentPipeline(){
     
     const pipeName = document.getElementById('pipeline-name') 
 
-    currentPipeline.pipelineId = new URLSearchParams(url).get('pipelineId')
+    currentPipeline.pipelineId = +new URLSearchParams(url).get('pipelineId')
     currentPipeline.pipelineName = new URLSearchParams(url).get('pipelineName');
 
     pipeName.textContent = currentPipeline.pipelineName
 
+    if(currentPipeline.pipelineId>3) 
+    {
+        currentPipeline.executions =  localStorage.getItem(db_key_pipelines+currentPipeline.pipelineId)?JSON.parse(localStorage.getItem(db_key_pipelines+currentPipeline.pipelineId)).executions  : []
+        
+        // currentPipeline.executions = localPipeline.executions
+        console.log('currentPipeline: ',currentPipeline);
+        
+        setTimeout(()=>{       
+            currentPipeline.executions.forEach(exec=>{
+            console.log('exec: ',exec);
+            selectedProcesses =  exec
+            addProcess()
+        })
+        if(new URLSearchParams(url).get('running')=='true')
+            runSequentially()
+        },500)
+    return
+    }
+
     fetch(jsonPipelines)
     .then(response=>response.json())
-    .then(data => {
+    .then(pipeline => {
         clearSVG()
  
        // debugger
-        console.log('setUpPipeline data: ',data);
-        filteredData = data.filter(d=>{
+        console.log('setUpPipeline : ',pipeline);
+        const filteredData = pipeline.filter(d=>{
             return d.pipelineId == currentPipeline.pipelineId
         })
 
-        currentPipeline.processes = filteredData[0]['processes']?filteredData[0]['processes']: []
+        currentPipeline.executions = filteredData[0]['executions']?filteredData[0]['executions']: []
          
-        console.log('currentPipeline.processes: ',currentPipeline.processes);
+        console.log('currentPipeline: ',currentPipeline);
         
-        currentPipeline.processes.forEach(p=>{
-            processes =  p
+        currentPipeline.executions.forEach(exec=>{
+            selectedProcesses =  exec
             addProcess()
         })
         if(new URLSearchParams(url).get('running')=='true')
@@ -334,26 +413,30 @@ function getLastProcessOrder(){
     return maxProcessOrder
 }
 
-function addProcess(newPipeline) {      
+function addProcess() {      
     let executionOrder = getLastProcessOrder()+1
     
-        if(processes.order){
-            executionOrder = processes.order
+        if(selectedProcesses.order){
+            executionOrder = selectedProcesses.order
         }else{  //if no order / is new node addition, add the order property based on already present process-node count
-            processes = {order: executionOrder, process: [...processes]}
+            selectedProcesses = {order: executionOrder, process: [...selectedProcesses]}
+            // currentPipeline
+            // console.log('selectedProcesses: ',selectedProcesses); 
+            currentPipeline.executions.push(selectedProcesses)
+            console.log('currentPipeline.executions: ',currentPipeline.executions);
         } 
     //debugger;
-    if(processes.process && processes.process.length>1){ 
-        parallelCounter = processes.process.length  //global parallel process iterator
+    if(selectedProcesses.process && selectedProcesses.process.length>1){ 
+        parallelCounter = selectedProcesses.process.length  //global parallel process iterator
         const processCount = parallelCounter
         yLinearBand(processCount)
-         processes.process.forEach((p,i) => {
+         selectedProcesses.process.forEach((p,i) => {
             console.log('p: ',p);
             queueProcess(p.name, executionOrder, parallelCounter--)
         });     
     }
-    else{
-        queueProcess(processes.process[0].name,executionOrder)
+    else{ 
+        queueProcess(selectedProcesses.process[0].name,executionOrder)
     }
 } 
  

@@ -28,8 +28,8 @@
                 "pid":4
             },
             {
-                "name":"Data Profiler",
-                "code":"data-profiler",
+                "name":"Data Scrub",
+                "code":"data-scrub",
                 "status":"complete",
                 "pid":5
             },
@@ -40,8 +40,8 @@
                 "pid":6
             },
             {
-                "name":"QC Automation",
-                "code":"qc-automation",
+                "name":"Gemini",
+                "code":"gemini",
                 "status":"running",
                 "pid":7
             }
