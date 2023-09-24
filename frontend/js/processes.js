@@ -311,7 +311,7 @@ function rerunProcess(){
 }
   
 function save(){
-    localStorage.setItem(db_key_pipelines+currentPipeline.pipelineName+currentPipeline.pipelineId,JSON.stringify(currentPipeline))
+    localStorage.setItem(db_key_pipelines+currentPipeline.pipelineName+'-'+currentPipeline.pipelineId,JSON.stringify(currentPipeline))
     unsavedChanges = false
     btnSave.setAttribute("disabled", "disabled");
 }
@@ -330,7 +330,7 @@ function fetchConfigOfCurrentPipeline(){
 
     if(currentPipeline.pipelineId>3) 
     {
-        currentPipeline.executions =  localStorage.getItem(db_key_pipelines+currentPipeline.pipelineName+currentPipeline.pipelineId)?JSON.parse(localStorage.getItem(db_key_pipelines+currentPipeline.pipelineName+currentPipeline.pipelineId)).executions  : []
+        currentPipeline.executions =  localStorage.getItem(db_key_pipelines+currentPipeline.pipelineName+'-'+currentPipeline.pipelineId)?JSON.parse(localStorage.getItem(db_key_pipelines+currentPipeline.pipelineName+'-'+currentPipeline.pipelineId)).executions  : []
         
         setTimeout(()=>{       
             currentPipeline.executions.forEach(exec=>{
