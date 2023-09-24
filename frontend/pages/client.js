@@ -30,12 +30,10 @@ function setUpPipeline(pipelineId){
     .then(data => {
         clearSVG()
 
-        console.log('setUpPipeline data: ',data);
         currentPipeline = data.filter(d=>{
             return d.pipelineId == pipelineId
         }) 
 
-        console.log('currentPipeline.processes: ',currentPipeline[0].processes);
         setupXxsScaleBand(currentPipeline[0].processes, 'pid') // scale setup
  
         currentPipeline[0].processes.forEach(process=>{
@@ -72,13 +70,10 @@ function setUpPipeline(pipelineId){
     
             // Add a click event listener to the group
             group.on("click", function(e) {
-                console.log("Hello");
                 openProcessModal(e)
             });
             drawLineFromPreviousProcess(process.pid)
-        }) 
-        
-        console.log('currentPipeline: ',currentPipeline);
+        })
     })
 }
 
@@ -111,7 +106,6 @@ function addPipeline(){
                                         </td>
                                     </tr>
                                     `
-    console.log('newPipeLineName: ',newPipeLineName);
     toggleAddNewPipelineModal()
 }
 

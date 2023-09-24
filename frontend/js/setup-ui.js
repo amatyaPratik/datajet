@@ -6,6 +6,8 @@ const jsonRunningPipelines = 'http://localhost:8080/frontend/js/running-pipeline
 let isRunningPipeline = false
 let totalProcesses
 
+const btnSave = document.querySelector('#btn-save')
+
 let x
 let y
  
@@ -36,7 +38,6 @@ function populateProcessSelect() {
     fetch(jsonProcessesURL)
         .then(response => response.json())
         .then(data => {
-            // console.log('data:',data); 
             totalProcesses = data.length
 
             setupXxsScaleBand(data, 'pid')
@@ -58,7 +59,6 @@ function populateProcessSelect() {
     
         isRunningPipeline = new URLSearchParams(window.location.search).get('running') == 'true'
 
-        // console.log('isRunningPipeline: ',isRunningPipeline); 
         const pipelineStatus = document.getElementsByClassName('pipeline-status')[0]
 
         if(isRunningPipeline){  
@@ -79,7 +79,6 @@ function populateProcessSelect() {
 
 
 function openDialogTab(tabind){
-    // console.log('here');
     const processConfigModal = document.getElementById('process-config-modal')
 
     const className = processConfigModal.className
@@ -102,7 +101,6 @@ function populateClientList(){
             li.appendChild(a)
             clientsUlElement.appendChild(li);
         });
-        // console.log('data:',data); 
     })
 }
 
@@ -110,12 +108,9 @@ function popuplatePipelinesTable(){
     const tablePipelines = document.querySelector('#pipelines-table table tbody')
     if(!tablePipelines) return
 
-    // console.log('tablePipelines; ',tablePipelines);
-
     fetch(jsonPipelines)
     .then(response => response.json())
     .then(pipelines => {
-        console.log('d: ',pipelines);
         pipelines.forEach((p,ind)=>{
             const tr = document.createElement('tr');
             const td1 = document.createElement('td');
@@ -154,7 +149,6 @@ function yLinearBand(count){
     .domain([1,count])
     .range([rh+margin.TOP, HEIGHT-rh]) // Available vertical space
     .padding(0.5); // Adjust the padding as needed (0.1 for a small gap between bands)
-    console.log('yscale up'); 
 }
 
 function toggleMenuPanel(){
@@ -285,7 +279,6 @@ function clearSVG(){
         while (svgElement.firstChild) {
             svgElement.removeChild(svgElement.firstChild);
         }
-        console.log('cleared');
 }
 
 // Call the populateSelect function to populate the options
