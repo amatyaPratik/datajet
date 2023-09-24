@@ -78,8 +78,8 @@ function populateProcessSelect() {
 }
 
 
-function openDialogTab(e, tabind){
-    console.log('evt: ',e.target.outerText);
+function openDialogTab(tabind){
+    // console.log('here');
     const processConfigModal = document.getElementById('process-config-modal')
 
     const className = processConfigModal.className
@@ -115,7 +115,7 @@ function popuplatePipelinesTable(){
     fetch(jsonPipelines)
     .then(response => response.json())
     .then(pipelines => {
-        // console.log('d: ',pipelines);
+        console.log('d: ',pipelines);
         pipelines.forEach((p,ind)=>{
             const tr = document.createElement('tr');
             const td1 = document.createElement('td');
@@ -169,18 +169,68 @@ function toggleMenuPanel(){
     }
 } 
 
-function openProcessModal(e){
-    console.log('e: ',e);
+function hideAllProcessDialogControls(){
     const processConfigModal = document.getElementById('process-config-modal')
-    const dialogDimensions = processConfigModal.getBoundingClientRect()
-    if(
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
-    ) {
-        processConfigModal.close(0)
+    const allControls = processConfigModal.querySelectorAll('[class$="-tab-prop"]')
+    for(let c of allControls){  // hide all controls first
+        c.classList.add('d-none')
     }
+}
+
+function openProcessModal(e){ 
+    
+    const processConfigModal = document.getElementById('process-config-modal')
+    
+    const generalControls = processConfigModal.getElementsByClassName('general-tab-prop')
+    const dataloadControls = processConfigModal.getElementsByClassName('dataload-tab-prop')
+    const datascrubControls = processConfigModal.getElementsByClassName('datascrub-tab-prop')
+    const jirataskControls = processConfigModal.getElementsByClassName('jiratask-tab-prop')
+    const emailControls = processConfigModal.getElementsByClassName('email-tab-prop')
+
+    console.log('dataloadControls: ',dataloadControls)
+
+
+
+    switch(e.target.textContent){
+        case 'Data Load':
+            hideAllProcessDialogControls()
+            for(c of dataloadControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+            break;
+
+        case 'Data Scrub':
+            hideAllProcessDialogControls()
+            for(c of datascrubControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+            break;
+        
+        case 'Jira Task':
+            hideAllProcessDialogControls()
+            for(c of jirataskControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+            break;
+
+        case 'Email Notifier':
+            hideAllProcessDialogControls()
+            for(c of emailControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+            break;
+        
+        case 'Schema Data Transfer':
+        case 'Custom Task':
+        case 'Scrub QC':
+        case 'Gemini':
+            hideAllProcessDialogControls()
+            for(c of generalControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+
+    }
+ 
     processConfigModal.showModal()
 }
 
