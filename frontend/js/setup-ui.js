@@ -180,6 +180,7 @@ function openProcessModal(e){
     const datascrubControls = processConfigModal.getElementsByClassName('datascrub-tab-prop')
     const jirataskControls = processConfigModal.getElementsByClassName('jiratask-tab-prop')
     const emailControls = processConfigModal.getElementsByClassName('email-tab-prop')
+    const scrubQcControls = processConfigModal.getElementsByClassName('scrubqc-tab-prop')
 
     console.log('dataloadControls: ',dataloadControls)
 
@@ -212,7 +213,13 @@ function openProcessModal(e){
             for(c of emailControls){  // hide all controls first
                 c.classList.remove('d-none')
             }
-            break;
+            break
+        case 'Scrub QC':
+            hideAllProcessDialogControls()
+            for(c of scrubQcControls){  // hide all controls first
+                c.classList.remove('d-none')
+            }
+            break
         
         case 'Schema Data Transfer':
         case 'Custom Task':

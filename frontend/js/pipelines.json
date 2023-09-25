@@ -52,13 +52,11 @@
             },
             {
                 "order":6,
-                "process":[
-                    {
-                        "name":"Gemini",
-                        "code":"gemini",
-                        "pid":7
-                    }
-                ]
+                "process":[{
+                    "name":"Scrub QC",
+                    "code":"scrub-qc",
+                    "pid":7
+                }]
             }
         ]
     },
@@ -97,6 +95,14 @@
                         "code":"jira-task",
                         "pid":4
                     }]
+                },
+                {
+                    "order":5,
+                    "process":[{
+                        "name":"Scrub QC",
+                        "code":"scrub-qc",
+                        "pid":7
+                    }]
                 }
             ]
     },
@@ -118,6 +124,14 @@
                     "name":"Data Load",
                     "code":"data-load",
                     "pid":2
+                }]
+            },
+            {
+                "order":3,
+                "process":[{
+                    "name":"Scrub QC",
+                    "code":"scrub-qc",
+                    "pid":7
                 }]
             }
         ]
