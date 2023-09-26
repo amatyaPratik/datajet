@@ -56,14 +56,26 @@
 			<h4 class="title d-flex justify-content-start position-relative">
 				<span onclick="openDialogTab(1)" class="dialog-tab"> Process Config </span> 
 				<span onclick="openDialogTab(2)" class="dialog-tab"> Logs </span> 
-				<button type="submit" class="btn btn-light ml-auto px-3" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button></h4>
+				<span class="ml-auto font-3xl">
+					<button type="button" title="View Complete Process" class="display-1 btn btn-lg bg-none px-4 py-3" formmethod="dialog"><a href="./pages/scrub-qc.html"><i class="fa-regular fa-eye"></i></a></button>
+					<button type="submit" class="display-1 btn btn-lg bg-none text-danger px-4 py-3" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button>
+				</span>
+			</h4>
 			<hr>
 			<div class="tab-prop-config">
-				<div class="form-group row general-tab-prop">
+ 
+				<!-- for Custom task -->
+				<div class="form-group row custom-task-tab-prop">
+					<label for="custom-sql" class="col-4">Custom Script</label>
+					<textarea name="custom-sql" class="col-7" id="custom-sql" cols="30" rows="10">UPDATE /*+ PARALLEL(a,4)*/ VH_ELIG_AETNA_WILS a  SET  EFFDATE= To_Date (''2012.01.01'',''YYYY.MM.DD'') WHERE lvlid1=''3211760'' AND  EFFDATE <To_Date (''2012.01.01'',''YYYY.MM.DD'')
+					</textarea>
+				</div>
+
+				<div class="form-group row general-tab-prop custom-task-tab-prop">
 					<label class="col-4" for="prop1">Prop 1</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div>
-				<div class="form-group row general-tab-prop">
+				<div class="form-group row general-tab-prop custom-task-tab-prop">
 					<label class="col-4" for="prop1">Prop 2</label>
 					<input type="text" name="prop1" class="form-control col-7" placeholder="property 1">
 				</div>
@@ -129,20 +141,20 @@
 
 					<!-- for scrub qc process -->
 					<div class="form-group row scrubqc-tab-prop">
-						<label class="col-4" for="general-qc">General QC</label>
-						<input type="checkbox" name="general-qc" class="form-control col-7" placeholder="Enter Source Schema">
+						<label class="col" for="general-qc">General QC</label>
+						<input type="checkbox" name="general-qc" class="form-control col">
 					</div> 
 					<div class="form-group row scrubqc-tab-prop">
-						<label class="col-4" for="group-qc">Group QC</label>
-						<input type="checkbox" name="group-qc" class="form-control col-7" placeholder="Enter Target Schema">
+						<label class="col" for="group-qc">Group QC</label>
+						<input type="checkbox" name="group-qc" class="form-control col">
 					</div>
 					<div class="form-group row scrubqc-tab-prop">
-						<label class="col-4" for="report1">Report 1</label>
-						<input type="checkbox" name="report1" class="form-control col-7" placeholder="property 1">
+						<label class="col" for="report1">Report 1</label>
+						<input type="checkbox" name="report1" class="form-control col">
 					</div>
 					<div class="form-group row scrubqc-tab-prop">
-						<label class="col-4" for="report2">Report 2</label>
-						<input type="checkbox" name="report2" class="form-control col-7" placeholder="property 1">
+						<label class="col" for="report2">Report 2</label>
+						<input type="checkbox" name="report2" class="form-control col">
 					</div> 
 
 				<button type="submit" class="mt-2 btn btn-primary" id="save-process-config">Save</button>

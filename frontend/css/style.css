@@ -191,3 +191,38 @@ dialog#process-config-modal .props-form h4 span[class^="dialog-tab"]{
     height: 100%;
     padding: 10px;
 }
+
+textarea{
+    font-style: oblique;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left !important;
+}
+
+label.blue-checkbox input[type="checkbox"] {
+    appearance: none; /* Remove default styles */
+    -webkit-appearance: none; /* Remove default styles for WebKit browsers */
+    -moz-appearance: none; /* Remove default styles for Firefox */
+    width: 40px; /* Set width of the checkbox */
+    height: 40px; /* Set height of the checkbox */
+    background-color: none; /* Set background color to blue */
+    border: 1px solid limegreen; /* Set border color to blue */
+    border-radius: 3px; /* Add a slight border-radius */
+    outline: none; /* Remove focus outline */
+}
+
+        /* Style the checked state */
+        label.blue-checkbox input[type="checkbox"]:checked {
+            background-color: limegreen;
+            border: 1px solid limegreen;
+        }
+
+        /* Style the checkmark (tick mark) */
+        label.blue-checkbox input[type="checkbox"]:checked::before {
+            content: "\2713"; /* Unicode checkmark character */
+            display: block;
+            position: absolute;
+            top: 3px; /* Adjust vertical position */
+            left: 24px; /* Adjust horizontal position */
+            color: white; /* Set checkmark color to white */
+        }

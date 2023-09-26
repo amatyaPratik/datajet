@@ -160,10 +160,10 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
       group.append("rect")
           .attr("width", rw) 
           .attr("height", rh) 
-          .attr("fill", "lightgray") 
+          .attr("fill", "gainsboro") 
           .attr("stroke", "black")
-          .attr('rx',4)
-          .attr('ry',4) 
+          .attr('rx',8)
+          .attr('ry',8) 
           .attr("stroke-width", 2); 
 
     // Create a foreignObject to hold the text with wrapping
@@ -180,6 +180,7 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
     .style("display","flex")
     .style("justify-content","center")
     .style("align-items","center")
+    .style("font-weight","bold")
     .text(pName);
 
       // Add a click event listener to the group
@@ -203,10 +204,10 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
       group.append("rect")
           .attr("width", rw) 
           .attr("height", rh) 
-          .attr("fill", "lightgray") 
+          .attr("fill", "gainsboro") 
           .attr("stroke", "black")
-          .attr('rx',4)
-          .attr('ry',4) 
+          .attr('rx',8)
+          .attr('ry',8) 
           .attr("stroke-width", 2); 
 
         // Create a foreignObject to hold the text with wrapping
@@ -223,6 +224,7 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
         .style("display","flex")
         .style("justify-content","center")
         .style("align-items","center")
+        .style("font-weight","bold")
         .text(pName);
 
       // Add a click event listener to the group
@@ -248,7 +250,7 @@ function areAllProcessesInCurrentOrderDone(order){
     const allProcessesInCurrentOrder = document.querySelectorAll(`[process-order='${order}']`);
     let yes = true
     allProcessesInCurrentOrder.forEach(p=>{
-        if(p.querySelector('rect').getAttribute('style') !== 'stroke: green;')
+        if(p.querySelector('rect').getAttribute('style') !== 'stroke: limegreen;')
             yes = false
     })
 return yes
@@ -289,7 +291,7 @@ function runSequentially(ind=1){
                     btnStop.classList.add('d-none')
                 }
                 else{
-                    p.querySelector('rect').style.stroke = 'green' 
+                    p.querySelector('rect').style.stroke = 'limegreen' 
                     if(areAllProcessesInCurrentOrderDone(ind)){ 
                         runSequentially(ind+1)
                     }
