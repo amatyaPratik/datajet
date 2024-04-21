@@ -39,12 +39,12 @@
     width: 40px;
     height: 40px;
     border-radius: 50px;
-    background-color: transparent;  
+    background-color: transparent;
 }
 
 div.show table, table.show, dialog.show{
-    margin: 10rem auto 0 auto;
-    font-size: 1.3rem;
+    margin: 3rem auto 0 auto;
+    font-size: 1.1rem;
 }
 
 table td, table th{

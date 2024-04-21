@@ -12,7 +12,7 @@ body{
     position: relative;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: hidden;
 } 
  
 button, .btn, input[type="checkbox"], a{
@@ -21,9 +21,11 @@ button, .btn, input[type="checkbox"], a{
 .btn:disabled, input[type="checkbox"]:disabled{
     cursor: not-allowed !important;
 }
-h1 span.pipeline-status{
+h4 span.pipeline-status{
     text-transform: uppercase !important;
     font-style: oblique !important;
+    color: gray;
+    /* font-size: 1rem; */
 }
 
 .background-node {
@@ -91,6 +93,13 @@ svg g.failed rect{
     font-size: 1.2rem;
     transition: 200ms all;
 }
+
+body #panel{
+    background:steelblue;
+    height: 100% !important;
+    border-radius: 7px;
+}
+
 body.stopped #panel{
     display: block;
 }
@@ -181,21 +190,22 @@ dialog#process-config-modal.show-tab-2 .tab-process-logs{
     display: block;
 }
 
-dialog#process-config-modal .props-form h4 span[class^="dialog-tab"]{
+dialog#process-config-modal .props-form h6 span[class^="dialog-tab"]{
     cursor: pointer;
     border-radius: 0 5px 0 0;
     /* border-top: 1px solid gainsboro; */
     /* border-right: 1px solid gainsboro; */
     border-right: 2px solid gray;
+    color: gray;
     display: inline-block;
     height: 100%;
-    padding: 10px;
+    padding: 8px 10px;
 }
 
 textarea{
     font-style: oblique;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 400;
     text-align: left !important;
 }
 

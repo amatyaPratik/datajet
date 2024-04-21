@@ -180,7 +180,7 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
     .style("display","flex")
     .style("justify-content","center")
     .style("align-items","center")
-    .style("font-weight","bold")
+    .style("font-weight","light")
     .text(pName);
 
       // Add a click event listener to the group
@@ -224,7 +224,7 @@ function addNode(pName, pOrder, parallels, xx=20, yy=(HEIGHT/2-rh/2)){
         .style("display","flex")
         .style("justify-content","center")
         .style("align-items","center")
-        .style("font-weight","bold")
+        .style("font-weight","light")
         .text(pName);
 
       // Add a click event listener to the group

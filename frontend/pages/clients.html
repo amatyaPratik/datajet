@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Pipelines | Clients</title>
+    <title>Clients | DataJet</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Custom styling -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="./clients.css">
+    <link rel="icon" type="image/png" href="../images/datajet-logo.png">
 </head>
 <body> 
-    <div class="container mt-5 text-center"> 
-        <h2 class="mb-5"> Clients</h2>
-        
+    <div class="container mt-4 text-center">
+        <span style="display: flex; justify-content: center; align-items:center;" class="pt-5 mb-3">
+            <img src="../images/datajet-logo.png" alt="" width="80px">
+            <h2 style="font-style: oblique; text-decoration:overline; color: gray; font-family: Poppins;">ataJet</h2>
+            <br>
+        </span>
+        <cite class="mb-5" style="color:gray;">
+            An enterprise-processes orchestration tool (simulator) based on building,<br>
+            monitoring and managing pipelines for their business workflows.<br>
+        </cite>
+        <hr>
+        <div class="input-group client-search" id="client-search">
+            <input type="text" class="form-control" onkeyup="searchClient(event)" placeholder="Search for a Client">
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    <svg height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
         <ol id="clients-list">
         </ol>
     </div> 

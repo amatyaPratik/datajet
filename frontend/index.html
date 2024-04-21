@@ -3,19 +3,21 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="">
-	<title>Data Pipelines | Clients</title> 
+	<title>Pipeline | DataJet</title> 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<!-- Custom styling -->
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="icon" type="image/png" href="./images/datajet-logo.png">
 </head>
 <body onload="fetchConfigOfCurrentPipeline()"> 
- 
-		 <div class="container text-center">
-			<div class='d-flex justify-content-center align-items-center mt-3'>
-				<h1> <span id="pipeline-name">Run1</span> | <span class="pipeline-status"> Create </span> </h1>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 <div class="container-fluid text-center">
+			<div class='d-flex justify-content-center align-items-center pt-4 mb-4'>
+				<h4>
+					<span id="pipeline-name">Run1</span> | <span class="pipeline-status"> Create </span> 
+				</h4>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn btn-lg bg-none border h1" onclick="stopPipeline()" id="btn-stop">
 					<i class="fa-solid fa-stop text-danger "></i>
 				</button>
@@ -26,48 +28,56 @@
 					<i class="fa-solid fa-rotate-right"></i>
 				</button>
 			</div>
-			<div class="row border-1">
-				<div id="chart-area" class="bg-light"></div>
-			</div>
-			<div id="panel" class="container py-2 px-3">
-			<div class="row"> 
-				<div class="form-group col-12">
-					<label for="process fw-bolder">processes</label>
-					<select class="form-control" name="process" id="process-select" placeholder="process name" multiple onchange="multiProcessesSelectCheck()">
-						<option value="-1" default style="font-weight: bold;">none</option>
-					</select> 		
-					<div class="form-group text-left p-2 mt-2">  
-						<label><input type="checkbox" style="width: 15px; height:15px;" id="run-in-parallel" disabled onchange="multiProcessesSelectCheck()"> &nbsp;&nbsp;Run in parallel</label> 
-					</div>
-				</div> 
-			</div>   
-			<div class="row mb-3">
-				<button type="button" id="btn-add" class="btn-primary btn" onclick="addProcess(true)" disabled>Add</button>
-				<button type="button" id="btn-save" class="btn-warning ml-3 btn" onclick="save()" disabled>Save</button>
-			</div>	
+			<div style="display: flex; justify-content: center; align-items: center;">
+				<div class="border-1" style="width: 75vw;">
+					<div id="chart-area" class="bg-light"></div>
+				</div>
+				<div id="panel" class="container px-3" style="width: 25vw; height:480px !important;">
+					<div class="row pt-3 px-1"> 
+						<div class="form-group col-12">
+							<div class="row">
+								<label for="process" class="h6 text-white">Add Process(es):</label>
+								<select class="form-control" name="process" style="height:40vh;" id="process-select" placeholder="process name" multiple onchange="multiProcessesSelectCheck()">
+									<option value="-1" default style="font-weight: bold;">none</option>
+								</select>
+							</div>	
+							<div class="row">
+								<div class="form-group text-left p-2">  
+									<label>
+										<em><input type="checkbox" style="width: 15px; height:15px;" id="run-in-parallel" disabled onchange="multiProcessesSelectCheck()"> &nbsp;&nbsp;Run in parallel</em>
+									</label> 
+								</div>
+							</div>	
+						</div> 
+					</div>   
+					<div class="text-right" style="">
+						<button type="button" id="btn-add" class="btn-primary btn" onclick="addProcess(true)" disabled>Add</button>
+						<button type="button" id="btn-save" class="btn-warning ml-3 btn" onclick="save()" disabled>Save</button>
+					</div>	
+				</div>
+			</div> 
 		</div>
-		</div> 
 	
 		
 
 	<dialog id="process-config-modal" class="show-tab-1"> 
 		
 		<form class="props-form">
-			<h4 class="title d-flex justify-content-start position-relative">
-				<span onclick="openDialogTab(1)" class="dialog-tab"> Process Config </span> 
+			<h6 class="title d-flex justify-content-start position-relative">
+				<span onclick="openDialogTab(1)" class="dialog-tab" style="color:steelblue;"> Process Config </span> 
 				<span onclick="openDialogTab(2)" class="dialog-tab"> Logs </span> 
 				<span class="ml-auto font-3xl">
-					<button type="button" title="View Complete Process" class="display-1 btn btn-lg bg-none px-4 py-3" formmethod="dialog"><a href="./pages/scrub-qc.html"><i class="fa-regular fa-eye"></i></a></button>
-					<button type="submit" class="display-1 btn btn-lg bg-none text-danger px-4 py-3" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button>
+					<button type="button" title="View Complete Process" class="display-1 btn btn-lg bg-none px-2 py-1" formmethod="dialog"><a href="./pages/scrub-qc.html"><i class="fa-regular fa-eye"></i></a></button>
+					<button type="submit" class="display-1 btn btn-lg bg-none text-danger px-2 py-1" formmethod="dialog"><i class="fa-solid fa-xmark"></i></button>
 				</span>
-			</h4>
+			</h6>
 			<hr>
 			<div class="tab-prop-config">
  
 				<!-- for Custom task -->
 				<div class="form-group row custom-task-tab-prop">
 					<label for="custom-sql" class="col-4">Custom Script</label>
-					<textarea name="custom-sql" class="col-7" id="custom-sql" cols="30" rows="10">UPDATE /*+ PARALLEL(a,4)*/ VH_ELIG_AETNA_WILS a  SET  EFFDATE= To_Date (''2012.01.01'',''YYYY.MM.DD'') WHERE lvlid1=''3211760'' AND  EFFDATE <To_Date (''2012.01.01'',''YYYY.MM.DD'')
+					<textarea name="custom-sql" class="col-7" id="custom-sql" cols="30" rows="10" style="font-size: 0.9 !important;">UPDATE /*+ PARALLEL(a,4)*/ VH_ELIG_AETNA_WILS a  SET  EFFDATE= To_Date (''2012.01.01'',''YYYY.MM.DD'') WHERE lvlid1=''3211760'' AND  EFFDATE <To_Date (''2012.01.01'',''YYYY.MM.DD'')
 					</textarea>
 				</div>
 
@@ -161,7 +171,7 @@
 			</div> 
 		</form>  
 		<div class="tab-process-logs"> 
-			<ul>
+			<ul style="height: 300px; overflow: auto;">
 				<li>03/22 08:51:01 INFO   :.main: *************** Oracle Agent started ***************</li>
 				<li>03/22 08:51:01 INFO   :..settcpimage: Associate with Oracle: JDBC</li>
 				<li>03/22 08:51:02 INFO   :..reg_process: registering process w</li>
@@ -169,7 +179,7 @@
 				<li>03/22 08:51:06 INFO   :...read_physical_space: checking available disk space</li>
 				<li>03/22 08:51:56 ERROR   :...DATA LOAD FAILED !!!</li>
 			</ul>
-			<button class="btn btn-warning position-absolute mb-0 fw-bold" style="bottom: 1rem;" onclick="rerunProcess()">Rerun Process</button>
+			<button class="btn btn-warning position-absolute mb-0 fw-bold mt-2" style="bottom: 1rem;" onclick="rerunProcess()">Rerun Process</button>
 		</div>
 	</dialog>	
 

@@ -1,7 +1,9 @@
-const jsonProcessesURL = 'http://localhost:8080/frontend/js/processes.json';
-const jsonClientsURL = 'http://localhost:8080/frontend/js/clients.json';
-const jsonPipelines = 'http://localhost:8080/frontend/js/pipelines.json'
-const jsonRunningPipelines = 'http://localhost:8080/frontend/js/running-pipelines.json'
+const jsonProcessesURL = '../js/processes.json';
+const jsonClientsURL = '../js/clients.json';
+const jsonPipelines = '../js/pipelines.json'
+const jsonRunningPipelines = '../js/running-pipelines.json'
+
+const allClients = [] 
 
 let isRunningPipeline = false
 let totalProcesses
@@ -81,27 +83,61 @@ function populateProcessSelect() {
 function openDialogTab(tabind){
     const processConfigModal = document.getElementById('process-config-modal')
 
+    const dialogTabs = document.getElementsByClassName('dialog-tab')
+
+    switch (tabind){
+        case 1:
+            dialogTabs[0].style.color='steelblue'
+            dialogTabs[1].style.color='gray'
+            break;
+        case 2:
+            dialogTabs[1].style.color='steelblue'
+            dialogTabs[0].style.color='gray'
+    }
+
     const className = processConfigModal.className
     
     processConfigModal.className = className.replace(className.substring(className.length-1),tabind)
 }
 
-function populateClientList(){
+function populateClientList(clientsList=[]){
     const clientsUlElement  = document.getElementById('clients-list');
     if(!clientsUlElement) return
 
-    fetch(jsonClientsURL)
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(optionText => {
+    if(clientsList.length===0){
+      fetch(jsonClientsURL)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(optionText => {
+                allClients.push({clientName:optionText.clientName, clientId:optionText.clientId})
+                const li = document.createElement('li');
+                const a = document.createElement('a'); 
+                a.textContent = optionText.clientName;
+                a.href = '/pages/client.html?clientName='+optionText.clientName+'&clientId='+optionText.clientId; 
+                li.appendChild(a)
+                clientsUlElement.appendChild(li);
+            });
+        })  
+    }else{
+        while (clientsUlElement.firstChild) {
+            clientsUlElement.removeChild(clientsUlElement.firstChild);
+        }
+        clientsList.forEach((client,ind)=>{
             const li = document.createElement('li');
             const a = document.createElement('a'); 
-            a.textContent = optionText.clientName;
-            a.href = '/frontend/pages/client.html?clientName='+optionText.clientName+'&clientId='+optionText.clientId; 
+            a.textContent = client.clientName;
+            a.href = '/pages/client.html?clientName='+client.clientName+'&clientId='+client.clientId; 
             li.appendChild(a)
             clientsUlElement.appendChild(li);
-        });
+        })
+    }
+}
+
+function searchClient(event){
+    const filteredClients = allClients.filter((client,index)=>{
+        return client.clientName.toLowerCase().includes(event.target.value.toLowerCase())
     })
+    populateClientList(filteredClients)
 }
 
 function popuplatePipelinesTable(){
@@ -120,14 +156,14 @@ function popuplatePipelinesTable(){
             const td2 = document.createElement('td');
             const a = document.createElement('a'); 
             a.textContent = p.pipelineName;
-            a.href = `/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}`; 
+            a.href = `/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}`; 
 
             td2.appendChild(a)
             tr.appendChild(td2);
 
             tr.innerHTML += `<td>
                             <button class="btn-run-pipeline">
-                                <a href="/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}&running=true">
+                                <a href="/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}&running=true">
                                     <i class="fa-solid fa-play"></i>
                                 </a>
                             </button>
@@ -273,8 +309,8 @@ const margin = {TOP:10, LEFT:10, RIGHT: 10, BOTTOM:10}
 const WIDTH = 1000-margin.LEFT-margin.RIGHT
 const HEIGHT = 500-margin.TOP-margin.BOTTOM
 
-const rw = 100
-const rh = 60
+const rw = 80
+const rh = 50
 
 const svg = d3.select('#chart-area')
 .append('svg')

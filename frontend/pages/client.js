@@ -1,13 +1,41 @@
+// Function to parse query string
+function parseQueryString(url) {
+    var queryString = url.split('?')[1];
+    var params = {};
+    if (queryString) {
+      var pairs = queryString.split('&');
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+      }
+    }
+    return params;
+}
+
 function displayPipelinesPage(){
     const pipelinesTable = document.getElementById('pipelines-table')
     const logsTable = document.getElementById('logs-table')
     const btnPipelines = document.getElementById('btn-pipelines')
     const btnLogs = document.getElementById('btn-logs')
+    const clientNameSpan = document.getElementById('client-name')
+    const clientIdSpan = document.getElementById('client-id')
 
     logsTable.className='hide'
     pipelinesTable.className='show'
     btnPipelines.className = 'btn btn-primary'
     btnLogs.className = 'btn btn-secondary'
+
+    const currentURL = window.location.href
+
+    // Parse the query string
+    var queryParams = parseQueryString(currentURL);
+
+    // Extract the values of clientName and clientId
+    const clientName = queryParams['clientName'];
+    var clientId = queryParams['clientId'];
+
+    clientNameSpan.textContent = clientName
+    clientIdSpan.textContent = clientId
 }
 
 function displayLogsPage(){
@@ -96,10 +124,10 @@ function addPipeline(){
     pipelinesTableBody.innerHTML += `
                                     <tr>
                                         <td>${trCount+1}</td>
-                                        <td><a href="/frontend/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}">${newPipeLineName}</a></td>
+                                        <td><a href="/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}">${newPipeLineName}</a></td>
                                         <td>
                                             <button class="btn-run-pipeline" disabled>
-                                                <a href="/frontend/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}&running=true" style="pointer-events:none;">
+                                                <a href="/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}&running=true" style="pointer-events:none;">
                                                     <i class="fa-solid fa-play"></i>
                                                 </a>
                                             </button>

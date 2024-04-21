@@ -1,6 +1,6 @@
 [
     {
-    "pipelineName":"pipeline-2",
+    "pipelineName":"pipeline-with-error",
     "pipelineId":2,
     "status":"inprogress",
     "processes":[

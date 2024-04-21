@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="./client.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="../images/datajet-logo.png">
 
-    <title>Client | Example</title>
+    <title>Client | DataJet</title>
 </head>
-<body>
+<body onload="displayPipelinesPage()">
     <div class="container text-center pt-5">
-        <h1 class="pb-3">Client | Test1</h1>
+        <h1 class="pb-3"><span id="client-name"></span><small>(<span id="client-id"></span>)</small></h1>
         <div class="btn-group">
             <button class="btn btn-primary btn-lg" onclick="displayPipelinesPage()" id="btn-pipelines"> Pipelines</button>
             <button class="btn btn-secondary btn-lg" onclick="displayLogsPage()" id="btn-logs">Logs</button>    
@@ -23,7 +24,7 @@
                 <thead>
                     <tr>
                         <th>sn</th>
-                        <th>pipelines</th>
+                        <th>sample pipelines</th>
                         <th>action</th>
                     </tr>
                 </thead>
@@ -31,7 +32,7 @@
                 </tbody>
             </table> 
     
-            <button class="btn btn-light btn-lg mt-5" type="button" onclick="toggleAddNewPipelineModal()" id="btn-add-pipeline">
+            <button class="btn btn-light border mt-5" type="button" onclick="toggleAddNewPipelineModal()" id="btn-add-pipeline">
                 Add New Pipeline
             </button>
         </div>

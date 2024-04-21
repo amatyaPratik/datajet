@@ -61,7 +61,7 @@
         ]
     },
     {
-        "pipelineName":"pipeline-2",
+        "pipelineName":"pipeline-with-error",
         "pipelineId":2,
         "executions":[
                 {   
@@ -137,7 +137,7 @@
         ]
     },
     {
-        "pipelineName":"pipeline-4",
+        "pipelineName":"empty-pipeline",
         "pipelineId":4,
         "executions":[]
     }
