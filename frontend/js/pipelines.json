@@ -1,5 +1,10 @@
 [
     {
+        "pipelineName":"empty-pipeline",
+        "pipelineId":4,
+        "executions":[]
+    },
+    {
         "pipelineName":"pipeline-1",
         "pipelineId":1,
         "executions":[
@@ -135,10 +140,5 @@
                 }]
             }
         ]
-    },
-    {
-        "pipelineName":"empty-pipeline",
-        "pipelineId":4,
-        "executions":[]
     }
 ]
