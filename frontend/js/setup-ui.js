@@ -163,7 +163,7 @@ function popuplatePipelinesTable(){
 
             tr.innerHTML += `<td>
                             <button class="btn-run-pipeline">
-                                <a href="/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}&running=true">
+                                <a href="/datajet/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}&running=true">
                                     <i class="fa-solid fa-play"></i>
                                 </a>
                             </button>
