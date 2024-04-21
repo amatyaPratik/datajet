@@ -1,7 +1,7 @@
-const jsonProcessesURL = './js/processes.json';
-const jsonClientsURL = './js/clients.json';
-const jsonPipelines = './js/pipelines.json'
-const jsonRunningPipelines = './js/running-pipelines.json'
+const jsonProcessesURL = '/datajet/frontend/js/processes.json';
+const jsonClientsURL = '/datajet/frontend/js/clients.json';
+const jsonPipelines = '/datajet/frontend/js/pipelines.json'
+const jsonRunningPipelines = '/datajet/frontend/js/running-pipelines.json'
 
 const allClients = [] 
 
