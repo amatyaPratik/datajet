@@ -156,7 +156,7 @@ function popuplatePipelinesTable(){
             const td2 = document.createElement('td');
             const a = document.createElement('a'); 
             a.textContent = p.pipelineName;
-            a.href = `/datajet/frontnend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}`; 
+            a.href = `/datajet/frontend/index.html?pipelineName=${p.pipelineName}&pipelineId=${p.pipelineId}`; 
 
             td2.appendChild(a)
             tr.appendChild(td2);
