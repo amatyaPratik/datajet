@@ -126,7 +126,7 @@ function populateClientList(clientsList=[]){
             const li = document.createElement('li');
             const a = document.createElement('a'); 
             a.textContent = client.clientName;
-            a.href = '/pages/client.html?clientName='+client.clientName+'&clientId='+client.clientId; 
+            a.href = '/datajet/frontend/pages/client.html?clientName='+client.clientName+'&clientId='+client.clientId; 
             li.appendChild(a)
             clientsUlElement.appendChild(li);
         })
