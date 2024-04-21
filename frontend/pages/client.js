@@ -127,7 +127,7 @@ function addPipeline(){
                                         <td><a href="/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}">${newPipeLineName}</a></td>
                                         <td>
                                             <button class="btn-run-pipeline" disabled>
-                                                <a href="/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}&running=true" style="pointer-events:none;">
+                                                <a href="/datajet/frontend/index.html?pipelineName=${newPipeLineName}&pipelineId=${trCount+1}&running=true" style="pointer-events:none;">
                                                     <i class="fa-solid fa-play"></i>
                                                 </a>
                                             </button>
