@@ -113,7 +113,7 @@ function populateClientList(clientsList=[]){
                 const li = document.createElement('li');
                 const a = document.createElement('a'); 
                 a.textContent = optionText.clientName;
-                a.href = '/pages/client.html?clientName='+optionText.clientName+'&clientId='+optionText.clientId; 
+                a.href = '/datajet/frontend/pages/client.html?clientName='+optionText.clientName+'&clientId='+optionText.clientId; 
                 li.appendChild(a)
                 clientsUlElement.appendChild(li);
             });
