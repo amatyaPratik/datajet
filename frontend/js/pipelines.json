@@ -1,12 +1,12 @@
 [
     {
         "pipelineName":"empty-pipeline",
-        "pipelineId":4,
+        "pipelineId":1,
         "executions":[]
     },
     {
         "pipelineName":"pipeline-1",
-        "pipelineId":1,
+        "pipelineId":2,
         "executions":[
             {   
                 "order":1,
@@ -67,7 +67,7 @@
     },
     {
         "pipelineName":"pipeline-with-error",
-        "pipelineId":2,
+        "pipelineId":3,
         "executions":[
                 {   
                     "order":1,
@@ -113,7 +113,7 @@
     },
     {
         "pipelineName":"pipeline-3",
-        "pipelineId":3,
+        "pipelineId":4,
         "executions":[
             {   
                 "order":1,
